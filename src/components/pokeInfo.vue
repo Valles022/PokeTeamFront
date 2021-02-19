@@ -6,9 +6,11 @@
       </a>
     </figure>
     <div id="pokeData">
-      <p >Nº: <b>{{ poke.pokedexNumber }}</b></p>
-      <h4>{{ poke.name }}</h4>
-      <div v-for="ability in poke.abilities" :key="ability"><b>{{ ability.ability.name }}</b></div>
+      <p id="id">Nº: {{ poke.pokedexNumber }}</p>
+      <h4 id="nm">{{ poke.name }}</h4>
+      <div id="abi">
+        <div v-for="ability in poke.abilities" :key="ability">{{ ability.ability.name }}</div>
+      </div>
     </div>
   </div>
 </template>
@@ -20,50 +22,43 @@ export default {
 </script>
 
 <style scoped>
-/* #pokeData {
-  width: 80%;
+#pokeData {
+  width: 70%;
+  margin: 0 auto;
   display: grid;
-  grid-auto-rows: minmax(70px, auto);
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-areas: "id whgt typ typ"
-                        "nm atk atk atk";
+  text-align: left;
+  grid-auto-rows: minmax(35px, auto);
+  grid-template-columns: repeat(1, 2fr);
+  grid-template-areas:
+  "id"
+  "nm"
+  "abi";
 }
 
 #pokeData>div {
-  text-align: left;
   height: 20px;
 }
 
-#pkid {
+#id {
   grid-area: id;
 }
 
-#pkwhgt {
-  grid-area: whgt;
-}
-
-#pknm {
+#nm {
   grid-area: nm;
 }
-#pktyp {
-  grid-area: typ;
+
+#abi {
+  grid-area: abi;
   display: flex;
 }
 
-#pktyp>div {
+#abi>div {
   margin: auto 5px;
-  text-decoration: underline;
+  padding: 0 6px;
+  background-color: thistle;
+  border-radius: 10px;
 }
 
-#pkatk {
-  grid-area: atk;
-  display: flex;
-}
-
-#pkatk>div {
-  margin: auto 5px;
-  text-decoration: underline;
-} */
 p {
   color: #919191;
   font-size: 100%;
@@ -72,14 +67,18 @@ p {
   font-weight: 500;
 }
 
+h4 {
+  margin: 5px;
+}
+
 figure {
   background: #f2f2f2;
-  float: left;
   display: block;
+  margin: 0 auto;
   position: relative;
   border-radius: 5px;
-  width: 75%;
-  padding-top: 80%;
+  width: 70%;
+  padding-top: 70%;
 }
 
 a {

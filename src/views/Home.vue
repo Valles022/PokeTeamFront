@@ -48,9 +48,8 @@ export default {
 <style scoped>
 li{
   list-style: none;
-  display: block;
-  float: left;
+  display: inline-block;
   position: relative;
-  width: 25%;
+  width: 33%;
 }
 </style>
