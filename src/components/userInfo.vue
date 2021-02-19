@@ -4,16 +4,22 @@
       <img src="@/assets/logo.png" alt="Imagen de perfil">
     </div>
     <div>
-      <div>Id de entrenador</div>
-      <div>Nombre del entrenador</div>
-      <div>Total de pokemons en su equipo</div>
+      <div>Bienvenido entrenador: <b>{{ user.username }}</b></div>
+      <div v-if="team">Actualmente tiene un total de: <b>{{ team.length }}</b></div>
     </div>
   </div>
 </template>
 
 <script>
-export default {
+import { mapState } from 'vuex'
 
+export default {
+  computed: {
+    ...mapState({
+      user: state => state.account.user,
+      team: state => state.account.team
+    })
+  }
 }
 </script>
 
@@ -26,11 +32,12 @@ export default {
   justify-content: center;
 }
 
-#container div{
+#container>div{
   width: 50%;
 }
 
-#container div div{
+#container>div>div{
+  text-align: left;
   padding: 0.5rem;
 }
 

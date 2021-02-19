@@ -1,12 +1,15 @@
 <template>
-  <div class="home" v-if="userLogged">
+  <div class="home" v-if="user">
     <div>
       <UserInfo />
     </div>
 
     <div>
-      Informacion del equipo del user
-      <div>Componente con informacin de cada pokemon</div>
+      <ul>
+        <li v-for="poke in team" :key="poke.id">
+          <PokeInfo :poke='poke'/>
+        </li>
+      </ul>
     </div>
   </div>
   <div v-else>
@@ -18,16 +21,36 @@
 
 <script>
 import UserInfo from '@/components/userInfo'
+import PokeInfo from '@/components/pokeInfo'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'Home',
-  data () {
-    return {
-      userLogged: true
-    }
+  computed: {
+    ...mapState({
+      user: state => state.account.user,
+      team: state => state.account.team
+    })
+  },
+  methods: {
+    ...mapActions('account', ['getTeam'])
+  },
+  mounted () {
+    this.getTeam()
   },
   components: {
-    UserInfo
+    UserInfo,
+    PokeInfo
   }
 }
 </script>
+
+<style scoped>
+li{
+  list-style: none;
+  display: block;
+  float: left;
+  position: relative;
+  width: 25%;
+}
+</style>

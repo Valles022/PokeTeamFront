@@ -5,7 +5,7 @@
             <img src="@/assets/login-img.jpg" alt="Imagen pokedex">
         </div>
         <div>
-            <input type="text" v-model="name" name="name" placeholder="Username">
+            <input type="text" v-model="username" name="name" placeholder="Username">
         </div>
         <div>
             <input type="password" v-model="password"  name="password" placeholder="Password">
@@ -18,27 +18,28 @@
 </template>
 
 <script>
-import { ref, computed } from 'vue'
-import { useStore } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
-  setup () {
-    const store = useStore()
-    const status = computed(() => store.account.status)
-    const name = ref('')
-    const password = ref('')
-
-    function handleSubmit () {
-      if (this.name && this.password) {
-        store.login(this.name, this.password)
-      }
-    }
-
+  data () {
     return {
-      name,
-      password,
-      handleSubmit,
-      status
+      username: '',
+      password: '',
+      submitted: false
+    }
+  },
+  computed: {
+    ...mapState('account', ['status'])
+  },
+  created () {
+    this.logout()
+  },
+  methods: {
+    ...mapActions('account', ['login', 'logout']),
+    handleSubmit () {
+      if (this.username && this.password) {
+        this.login({ username: this.username, password: this.password })
+      }
     }
   }
 }
@@ -61,6 +62,10 @@ export default {
     width: 80%;
     height: 2.5rem;
     font-size: 25px;
+}
+
+img {
+  border-radius: 50px;
 }
 
 #btn-submit{
