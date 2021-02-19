@@ -13,12 +13,32 @@ const actions = {
     userService.login(username, password)
       .then(user => {
         commit('loginSuccess', user)
-        router.push('/')
+        if (user.username === 'admin') {
+          router.push('/admin')
+        } else {
+          router.push('/')
+        }
       }, error => {
         commit('loginFailure', error)
       }
       )
   },
+
+  register ({ dispatch, commit }, { username, password }) {
+    userService.register(username, password)
+      .then(user => {
+        commit('registerSuccess')
+        if (user.username === 'admin') {
+          router.push('/admin')
+        } else {
+          router.push('/')
+        }
+      }, error => {
+        commit('registerFailure', error)
+      }
+      )
+  },
+
   logout ({ commit }) {
     userService.logout()
     commit('logout')
@@ -45,6 +65,12 @@ const mutations = {
   loginFailure (state) {
     state.status = {}
     state.user = null
+  },
+  registerSuccess (state) {
+    state.status = { registered: true }
+  },
+  registerFailure (state) {
+    state.status = {}
   },
   logout (state) {
     state.status = {}

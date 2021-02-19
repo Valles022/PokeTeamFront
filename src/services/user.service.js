@@ -5,11 +5,7 @@ function login (username, password) {
   const requestOptions = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-      'Access-Control-Allow-Credentials': true
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({ user: username, password: password })
   }
@@ -22,6 +18,24 @@ function login (username, password) {
     }
     if (data.token) {
       localStorage.setItem('user', JSON.stringify(user))
+    }
+    return user
+  })
+}
+
+function register (username, password) {
+  const requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ user: username, password: password })
+  }
+
+  return fetch(`${apiUrl}/auth/register`, requestOptions).then(response => response.json()).then(data => {
+    const user = {
+      username: username,
+      password: password
     }
     return user
   })
@@ -45,8 +59,24 @@ function getTeam () {
   })
 }
 
+function getUsers () {
+  const requestOptions = {
+    method: 'GET',
+    headers: authHeader()
+  }
+
+  return fetch(`${apiUrl}/teams`, requestOptions).then(response => response.json()).then(data => {
+    if (data.team) {
+      return data.team
+    }
+    return []
+  })
+}
+
 export const userService = {
   login,
   logout,
-  getTeam
+  getTeam,
+  register,
+  getUsers
 }

@@ -1,8 +1,14 @@
 <template>
   <div class="home" v-if="user">
-    <div>
-      <UserInfo />
-    </div>
+    <div id="container">
+      <div>
+        <img src="@/assets/logo.png" alt="Imagen de perfil">
+      </div>
+      <div>
+        <div>Bienvenido entrenador: <b>{{ user.username }}</b></div>
+        <div v-if="team">Actualmente tiene un total de: <b>{{ team.length }}</b></div>
+      </div>
+  </div>
 
     <div>
       <ul>
@@ -20,7 +26,6 @@
 </template>
 
 <script>
-import UserInfo from '@/components/userInfo'
 import PokeInfo from '@/components/pokeInfo'
 import { mapActions, mapState } from 'vuex'
 
@@ -36,16 +41,39 @@ export default {
     ...mapActions('account', ['getTeam'])
   },
   mounted () {
-    this.getTeam()
+    if (this.user) {
+      this.getTeam()
+    }
   },
   components: {
-    UserInfo,
     PokeInfo
   }
 }
 </script>
 
 <style scoped>
+#container {
+  width: 50%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+#container>div{
+  width: 50%;
+}
+
+#container>div>div{
+  text-align: left;
+  padding: 0.5rem;
+}
+
+img{
+  width: 100px;
+  border-radius: 50px;
+}
+
 li{
   list-style: none;
   display: inline-block;

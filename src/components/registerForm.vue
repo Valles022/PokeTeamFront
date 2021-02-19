@@ -11,7 +11,7 @@
             <input type="password" v-model="password"  name="password" placeholder="Password">
         </div>
         <div>
-            <button id="btn-submit">Submit</button>
+            <button id="btn-submit">Register</button>
         </div>
       </form>
   </div>
@@ -24,18 +24,14 @@ export default {
   data () {
     return {
       username: '',
-      password: '',
-      submitted: false
+      password: ''
     }
   },
-  created () {
-    this.logout()
-  },
   methods: {
-    ...mapActions('account', ['login', 'logout']),
+    ...mapActions('account', ['register']),
     handleSubmit () {
       if (this.username && this.password) {
-        this.login({ username: this.username, password: this.password })
+        this.register({ username: this.username, password: this.password })
       }
     }
   }

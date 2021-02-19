@@ -7,7 +7,7 @@
     </figure>
     <div id="pokeData">
       <p id="id">Nº: {{ poke.pokedexNumber }}</p>
-      <h4 id="nm">{{ poke.name }}</h4>
+      <h4 id="nm">{{ poke.name.toUpperCase() }}</h4>
       <div id="abi">
         <div v-for="ability in poke.abilities" :key="ability">{{ ability.ability.name }}</div>
       </div>
