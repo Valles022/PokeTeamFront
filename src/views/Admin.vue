@@ -1,7 +1,11 @@
 <template>
   <div>
-      <p>Admin Panel</p>
-      <UserInfo />
+    <h3>Admin Panel</h3>
+    <div id="users">
+      <div  v-for="user in users" :key="user.userId">
+        <UserInfo :user="user" />
+      </div>
+  </div>
   </div>
 </template>
 
@@ -9,20 +13,35 @@
 import UserInfo from '@/components/userInfo'
 import { userService } from '@/services/user.service'
 export default {
+  data () {
+    return {
+      users: []
+    }
+  },
   components: {
     UserInfo
   },
-  created () {
+  mounted () {
     this.getUsers()
   },
   methods: {
     getUsers () {
-      userService.getUsers()
+      userService.getUsers().then(users => {
+        this.users = users
+      }, error => {
+        console.log(error)
+      })
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+#users {
+  display: inline-flex;
+}
 
+#users>div{
+  margin: 10px;
+}
 </style>

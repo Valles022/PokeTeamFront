@@ -2,7 +2,8 @@
   <div class="home" v-if="user">
     <div id="container">
       <div>
-        <img src="@/assets/logo.png" alt="Imagen de perfil">
+        <img v-if="user.image" :src="`http://localhost:3000/uploads/${user.image}`" alt="Imagen del usuario">
+        <img v-else src="@/assets/logo.png" alt="Imagen del usuario">
       </div>
       <div>
         <div>Bienvenido entrenador: <b>{{ user.username }}</b></div>
@@ -61,7 +62,8 @@ export default {
 }
 
 #container>div{
-  width: 50%;
+  width: 40%;
+  align-self: center;
 }
 
 #container>div>div{
@@ -70,7 +72,8 @@ export default {
 }
 
 img{
-  width: 100px;
+  width: 120px;
+  height: 120px;
   border-radius: 50px;
 }
 

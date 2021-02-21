@@ -1,4 +1,4 @@
-import { authHeader } from '@/helpers/auth-header'
+import { formHeader, authHeader } from '@/helpers/auth-header'
 const apiUrl = 'http://localhost:3000'
 
 function login (username, password) {
@@ -14,7 +14,8 @@ function login (username, password) {
     const user = {
       username: username,
       password: password,
-      token: data.token
+      token: data.token,
+      image: data.image
     }
     if (data.token) {
       localStorage.setItem('user', JSON.stringify(user))
@@ -23,19 +24,17 @@ function login (username, password) {
   })
 }
 
-function register (username, password) {
+function register (formData) {
   const requestOptions = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ user: username, password: password })
+    headers: formHeader(),
+    body: formData
   }
 
   return fetch(`${apiUrl}/auth/register`, requestOptions).then(response => response.json()).then(data => {
     const user = {
-      username: username,
-      password: password
+      username: data.user.username,
+      password: data.user.password
     }
     return user
   })
@@ -65,9 +64,9 @@ function getUsers () {
     headers: authHeader()
   }
 
-  return fetch(`${apiUrl}/teams`, requestOptions).then(response => response.json()).then(data => {
-    if (data.team) {
-      return data.team
+  return fetch(`${apiUrl}/auth/getAll`, requestOptions).then(response => response.json()).then(data => {
+    if (data) {
+      return data
     }
     return []
   })

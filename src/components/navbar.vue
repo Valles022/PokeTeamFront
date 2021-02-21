@@ -1,12 +1,21 @@
 <template>
   <div id="contenedor">
     <div>
-        <router-link to="/">Home</router-link>
+      <div v-if="user">
+        <router-link v-if="user.username === 'admin'" to="/admin">Admin Panel</router-link>
+        <router-link v-if="user.username === 'admin'" to="/register">Register</router-link>
+      </div>
+      <div>
+          <router-link to="/">Home</router-link>
+      </div>
     </div>
     <div>
-        <router-link to="/register">Register</router-link>
-        <a v-if="user" v-on:click="logout()">Logout</a>
-        <router-link v-else to="/login">Login</router-link>
+      <div v-if="user">
+        <a v-on:click="logout()">Logout</a>
+      </div>
+      <div v-else>
+        <router-link to="/login">Login</router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -40,7 +49,8 @@ a {
 }
 
 #contenedor div {
-    padding: 10px;
+    padding: 0 10px;
+    display: flex;
 }
 
 #contenedor a {

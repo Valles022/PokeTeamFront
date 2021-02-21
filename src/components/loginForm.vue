@@ -28,9 +28,6 @@ export default {
       submitted: false
     }
   },
-  created () {
-    this.logout()
-  },
   methods: {
     ...mapActions('account', ['login', 'logout']),
     handleSubmit () {

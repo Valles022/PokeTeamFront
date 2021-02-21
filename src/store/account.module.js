@@ -24,15 +24,11 @@ const actions = {
       )
   },
 
-  register ({ dispatch, commit }, { username, password }) {
-    userService.register(username, password)
+  register ({ dispatch, commit }, { formData }) {
+    userService.register(formData)
       .then(user => {
         commit('registerSuccess')
-        if (user.username === 'admin') {
-          router.push('/admin')
-        } else {
-          router.push('/')
-        }
+        router.push('/admin')
       }, error => {
         commit('registerFailure', error)
       }
@@ -42,6 +38,7 @@ const actions = {
   logout ({ commit }) {
     userService.logout()
     commit('logout')
+    router.push('/')
   },
   getTeam ({ commit }) {
     userService.getTeam()
