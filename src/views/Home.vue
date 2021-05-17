@@ -8,13 +8,27 @@
       <div>
         <div>Bienvenido entrenador: <b>{{ user.username }}</b></div>
         <div v-if="team">Actualmente tiene un total de: <b>{{ team.length }}</b></div>
+        <div><PokeAdd /></div>
       </div>
-  </div>
-
+    </div>
     <div>
+      <div v-if="messageTeam">
+        <div v-if="deleteStatus" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>{{ messageTeam }}</strong>
+          <button @click="closeMessage" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div v-else class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{ messageTeam }}</strong>
+          <button @click="closeMessage" type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
       <ul>
-        <li v-for="poke in team" :key="poke.id">
-          <PokeInfo :poke='poke'/>
+        <li v-for="(poke, index) in team" :key="index">
+          <PokeInfo :poke='poke' :index="index"/>
         </li>
       </ul>
     </div>
@@ -28,6 +42,7 @@
 
 <script>
 import PokeInfo from '@/components/pokeInfo'
+import PokeAdd from '@/components/addPoke'
 import { mapActions, mapState } from 'vuex'
 
 export default {
@@ -35,11 +50,16 @@ export default {
   computed: {
     ...mapState({
       user: state => state.account.user,
-      team: state => state.account.team
+      team: state => state.team.team,
+      messageTeam: state => state.team.message,
+      deleteStatus: state => state.team.status.deleteState
     })
   },
   methods: {
-    ...mapActions('account', ['getTeam'])
+    ...mapActions('team', ['getTeam', 'resetMessage']),
+    closeMessage () {
+      this.resetMessage()
+    }
   },
   mounted () {
     if (this.user) {
@@ -47,12 +67,53 @@ export default {
     }
   },
   components: {
-    PokeInfo
+    PokeInfo,
+    PokeAdd
   }
 }
 </script>
 
 <style scoped>
+@keyframes messageAnimation {
+  0% {
+    opacity: 1;
+  }
+  25%{
+    opacity: 0.75;
+  }
+  50%{
+    opacity: 0.5;
+  }
+  75%{
+    opacity: 0.25;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+
+.messageSuccess {
+  width: 40%;
+  opacity: 0;
+  margin: 0 auto;
+  border-radius: 25px;
+  background-color: rgb(35, 223, 35);
+  color: white;
+  padding: 0.5rem;
+  animation: 3s 1 linear messageAnimation;
+}
+
+.messageFailed {
+  width: 40%;
+  opacity: 0;
+  margin: 0 auto;
+  border-radius: 25px;
+  background-color: #ff5650;
+  color: white;
+  padding: 0.5rem;
+  animation: 3s 1 linear messageAnimation;
+}
+
 #container {
   width: 50%;
   margin: 0 auto;

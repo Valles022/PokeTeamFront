@@ -13,7 +13,6 @@ function login (username, password) {
   return fetch(`${apiUrl}/auth/login`, requestOptions).then(response => response.json()).then(data => {
     const user = {
       username: username,
-      password: password,
       token: data.token,
       image: data.image
     }
@@ -44,20 +43,6 @@ function logout () {
   localStorage.removeItem('user')
 }
 
-function getTeam () {
-  const requestOptions = {
-    method: 'GET',
-    headers: authHeader()
-  }
-
-  return fetch(`${apiUrl}/teams`, requestOptions).then(response => response.json()).then(data => {
-    if (data.team) {
-      return data.team
-    }
-    return []
-  })
-}
-
 function getUsers () {
   const requestOptions = {
     method: 'GET',
@@ -75,7 +60,6 @@ function getUsers () {
 export const userService = {
   login,
   logout,
-  getTeam,
   register,
   getUsers
 }

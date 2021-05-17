@@ -4,6 +4,7 @@
       <a href="#">
         <img :src="poke.image" alt="Imagen pokemon">
       </a>
+      <button @click="deletePokemon(index)">X</button>
     </figure>
     <div id="pokeData">
       <p id="id">Nº: {{ poke.pokedexNumber }}</p>
@@ -16,8 +17,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
-  props: ['poke']
+  props: ['poke', 'index'],
+  methods: {
+    ...mapActions('team', ['delete', 'getTeam']),
+    deletePokemon (index) {
+      this.delete({ index: index })
+    }
+  }
 }
 </script>
 
@@ -84,6 +92,22 @@ figure {
 a {
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+figure>button{
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  cursor: pointer;
+  width: 45px;
+  height: 45px;
+  border: 0;
+}
+
+figure>button:hover{
+  background-color: #ee534f;
+  border: 1;
 }
 
 img {

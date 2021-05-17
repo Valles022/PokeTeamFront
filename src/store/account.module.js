@@ -39,14 +39,6 @@ const actions = {
     userService.logout()
     commit('logout')
     router.push('/')
-  },
-  getTeam ({ commit }) {
-    userService.getTeam()
-      .then(team => {
-        commit('teamSuccess', team)
-      }, error => {
-        commit('teamFail', error)
-      })
   }
 }
 
@@ -72,12 +64,6 @@ const mutations = {
   logout (state) {
     state.status = {}
     state.user = null
-  },
-  teamSuccess (state, team) {
-    state.team = team
-  },
-  teamFail (state) {
-    state.team = null
   }
 }
 
