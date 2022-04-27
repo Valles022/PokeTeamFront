@@ -1,15 +1,15 @@
 <template>
-  <div id="pokeContainer">
+  <div class="pokeContainer">
     <figure>
       <a href="#">
         <img :src="poke.image" alt="Imagen pokemon">
       </a>
       <button @click="deletePokemon(index)">X</button>
     </figure>
-    <div id="pokeData">
-      <p id="id">Nº: {{ poke.pokedexNumber }}</p>
-      <h4 id="nm">{{ poke.name.toUpperCase() }}</h4>
-      <div id="abi">
+    <div class="pokeData">
+      <p>Nº: {{ poke.pokedexNumber }}</p>
+      <h4>{{ poke.name.toUpperCase() }}</h4>
+      <div class="abi">
         <div v-for="ability in poke.abilities" :key="ability">{{ ability.ability.name }}</div>
       </div>
     </div>
@@ -30,45 +30,38 @@ export default {
 </script>
 
 <style scoped>
-#pokeData {
-  width: 70%;
+.pokeContainer {
+  width: 95%;
+  background-color: lightcoral;
+  padding: 1rem;
   margin: 0 auto;
+  border-radius: 1rem;
+}
+
+.pokeData {
+  width: 95%;
+  margin: 0 auto;
+  align-items: center;
   display: grid;
   text-align: left;
   grid-auto-rows: minmax(35px, auto);
-  grid-template-columns: repeat(1, 2fr);
-  grid-template-areas:
-  "id"
-  "nm"
-  "abi";
+  grid-template-rows: repeat(3, 1fr);
 }
 
-#pokeData>div {
-  height: 20px;
-}
-
-#id {
-  grid-area: id;
-}
-
-#nm {
-  grid-area: nm;
-}
-
-#abi {
-  grid-area: abi;
+.abi {
   display: flex;
 }
 
-#abi>div {
-  margin: auto 5px;
+.abi div {
+  margin: 0.1rem 0.1rem;
   padding: 0 6px;
-  background-color: thistle;
+  background-color: lightsalmon;
   border-radius: 10px;
+  color: white;
 }
 
 p {
-  color: #919191;
+  color: white;
   font-size: 100%;
   padding-top: 2px;
   margin: 0.5rem 0;
@@ -77,16 +70,17 @@ p {
 
 h4 {
   margin: 5px;
+  color: white;
 }
 
 figure {
   background: #f2f2f2;
   display: block;
   margin: 0 auto;
+  padding: 1rem 0;
   position: relative;
-  border-radius: 5px;
+  border-radius: 1rem;
   width: 70%;
-  padding-top: 70%;
 }
 
 a {
@@ -100,21 +94,16 @@ figure>button{
   right: 0;
   z-index: 0;
   cursor: pointer;
-  width: 45px;
-  height: 45px;
   border: 0;
+  background: none;
 }
 
 figure>button:hover{
   background-color: #ee534f;
-  border: 1;
+  border: 1px;
 }
 
 img {
-  width: 100%;
-  float: left;
-  position: absolute;
-  top: 0;
-  left: 0;
+  max-height: 8rem;
 }
 </style>

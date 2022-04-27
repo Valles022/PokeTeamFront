@@ -3,7 +3,7 @@ import { teamService } from '@/services/team.service'
 
 const message = ''
 const state = message
-  ? { status: { deleteState: true }, message }
+  ? { status: { deleteState: true }, message, team: [] }
   : { status: {}, message }
 
 const actions = {
@@ -26,12 +26,12 @@ const actions = {
   resetMessage ({ commit }) {
     commit('resetMessage')
   },
-  addPokemon (pokemon) {
-    teamService.addPokemon(pokemon)
+  addPokemon ({ commit }, { name }) {
+    teamService.addPokemon(name)
       .then(pokemon => {
-        state.team.push(pokemon)
+        commit('addSuccess', pokemon)
       }, error => {
-        state.message = error
+        commit('addFail', error)
       })
   }
 }
@@ -51,6 +51,12 @@ const mutations = {
   },
   teamFail (state) {
     state.team = null
+  },
+  addSuccess (state, pokemon) {
+    state.team.push(pokemon)
+  },
+  addFail (state, error) {
+    state.message = error
   },
   resetMessage (state) {
     state.message = ''

@@ -28,14 +28,14 @@ function getTeam () {
   })
 }
 
-function addPokemon () {
+function addPokemon (name) {
   const requestOptions = {
     method: 'POST',
-    headers: authHeader()
+    headers: authHeader(),
+    body: JSON.stringify({ name: name })
   }
-
   return fetch(`${apiUrl}/teams/pokemons`, requestOptions).then(response => response.json()).then(data => {
-    return data.pokemon
+    return data
   })
 }
 

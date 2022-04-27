@@ -6,7 +6,8 @@ export function authHeader () {
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
       'Access-Control-Allow-Credentials': true,
-      Authorization: `JWT ${user.token}`
+      Authorization: `JWT ${user.token}`,
+      'Content-Type': 'application/json'
     }
   } else {
     return {}

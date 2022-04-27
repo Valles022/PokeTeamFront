@@ -1,68 +1,58 @@
 <template>
-  <div id="pokeAdd">
-      <button @click="showed = !showed" type="button" class="btn btn-outline-info">+</button>
-      <div v-if="showed" class="animation">
+  <div class="pokeAdd">
+      <button @click="show = !show" type="button" class="btn btn-outline-info">+</button>
+      <Transition name="fade">
+        <div v-if="show" class="animation">
           <label for="name">Add Pokemon: </label>
           <input type="text" name="name" v-model="pokemon" placeholder="Poke Name" />
-          <button type="button" @click="addPoke(pokemon)" class="bnt btn-success">Add</button>
-      </div>
+          <button type="button" @click="addPoke(pokemon)" class="btn btn-success">Add</button>
+        </div>
+      </Transition>
   </div>
 </template>
 
 <script>
-import { ref } from 'vue'
-import { useStore } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
-  setup () {
-    const store = useStore()
-    const showed = ref(false)
-    const pokemon = ref('')
-
-    function addPoke (pokemon) {
-      store.team.dispatch('addPokemon')
-    }
+  data () {
     return {
-      showed,
-      pokemon,
-      addPoke
+      pokemon: '',
+      show: false
+    }
+  },
+  methods: {
+    ...mapActions('team', ['addPokemon']),
+    addPoke (pokemon) {
+      this.addPokemon({ name: pokemon })
+      this.showed = false
+      pokemon = ''
     }
   }
 }
 </script>
 
 <style scoped>
-@keyframes inputAnimation {
-  0% {
-    left: 0px;
-  }
-  25%{
-    left: 10px;
-  }
-  50%{
-    left: 20px;
-  }
-  75%{
-    left: 30px;
-  }
-  100%{
-    left: 40px;
-  }
-}
-
-#pokeAdd {
-    display: flex;
+.pokeAdd {
+  padding: 1rem;
 }
 
 .animation {
-    display: flex;
-    position: relative;
-    left: 0;
-    height: 2rem;
-    animation: 2s 1 linear forwards inputAnimation;
+  padding: 0.5rem;
+  position: relative;
+  top: 0;
+  display: grid;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: 1s transform cubic-bezier(0, .12, .14,1);
+}
+
+.fade-enter-from, .fade-leave-to {
+  transform: translateY(2rem);
 }
 
 .animation>*{
-    padding: 0 1rem;
-    margin: 0 0.5rem;
+  margin: 0.2rem;
+  width: 100%;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <LoginForm />
+  <div class="container">
+      <LoginForm class="" />
   </div>
 </template>
 
@@ -14,9 +14,10 @@ export default {
 </script>
 
 <style scoped>
-div{
-    background-color: #eeeff1;
-    width: 80%;
-    margin: 1rem auto;
+.container {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  margin: 1rem auto;
 }
 </style>

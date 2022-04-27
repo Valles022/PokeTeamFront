@@ -41,21 +41,22 @@ export default {
 
 <style scoped>
 #login-form{
-    width: 90%;
-    margin: 0 auto;
-    padding: 2rem;
-    font-size: 18px !important;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 18px !important;
+  background-color: #eeeff1;
+  border-radius: 2rem;
 }
 
 #login-form div{
-    padding: 0.5rem;
-    margin: 0.5rem;
+  padding: 0.5rem;
+  margin: 0.5rem;
 }
 
 #login-form div input{
-    width: 80%;
-    height: 2.5rem;
-    font-size: 25px;
+  width: 80%;
+  height: 2.5rem;
+  font-size: 25px;
 }
 
 img {
@@ -63,12 +64,12 @@ img {
 }
 
 #btn-submit{
-    width: 80%;
-    height: 2rem;
-    background-color: #127eed;
-    color: white;
-    border: 0;
-    border-radius: 10px;
-    font-size: 20px;
+  width: 80%;
+  height: 2rem;
+  background-color: #127eed;
+  color: white;
+  border: 0;
+  border-radius: 10px;
+  font-size: 20px;
 }
 </style>

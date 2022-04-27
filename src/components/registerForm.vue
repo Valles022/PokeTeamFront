@@ -59,7 +59,7 @@ export default {
       formData.append('user', this.username)
       formData.append('password', this.password)
       try {
-        this.register(formData)
+        this.register({ formData: formData })
       } catch (error) {
         console.log(error)
         this.message = 'Ha habido un error en el registro'

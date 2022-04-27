@@ -1,13 +1,13 @@
 <template>
-  <div class="home" v-if="user">
-    <div id="container">
+  <div class="homeLogged" v-if="user">
+    <div class="trainerContainer">
       <div>
-        <img v-if="user.image" :src="`http://localhost:3000/uploads/${user.image}`" alt="Imagen del usuario">
-        <img v-else src="@/assets/logo.png" alt="Imagen del usuario">
+        <img v-if="user.image" :src="`http://localhost:3000/uploads/${user.image}`" alt="Imagen del usuario" class="trainerImg">
+        <img v-else src="@/assets/pokeball.png" alt="Imagen del usuario" class="trainerImg">
       </div>
-      <div>
+      <div class="trainerInfo">
         <div>Bienvenido entrenador: <b>{{ user.username }}</b></div>
-        <div v-if="team">Actualmente tiene un total de: <b>{{ team.length }}</b></div>
+        <div v-if="team">Actualmente tiene un total de: <b>{{ team.length }}</b> pokemons en su equipo</div>
         <div><PokeAdd /></div>
       </div>
     </div>
@@ -26,17 +26,22 @@
           </button>
         </div>
       </div>
-      <ul>
-        <li v-for="(poke, index) in team" :key="index">
+      <div class="pokeList">
+        <div v-for="(poke, index) in team" :key="index">
           <PokeInfo :poke='poke' :index="index"/>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </div>
-  <div v-else>
-    <p>Esta es una app para conocer informacion sobre pokemons y ver tu propio equipo.</p>
-
-    <p>Por favor, loggeese para más información</p>
+  <div v-else class="home">
+    <div class="container">
+      <div>
+        <h1>Please, log in to catch them all!!</h1>
+      </div>
+      <div>
+        <img class="imgHome" src="@/assets/pokemon-todos.jpg" alt="Imagen pokedex">
+      </div>
+    </div>
   </div>
 </template>
 
@@ -47,14 +52,12 @@ import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'Home',
-  computed: {
-    ...mapState({
-      user: state => state.account.user,
-      team: state => state.team.team,
-      messageTeam: state => state.team.message,
-      deleteStatus: state => state.team.status.deleteState
-    })
-  },
+  computed: mapState({
+    user: state => state.account.user,
+    team: state => state.team.team,
+    messageTeam: state => state.team.message,
+    deleteStatus: state => state.team.status.deleteState
+  }),
   methods: {
     ...mapActions('team', ['getTeam', 'resetMessage']),
     closeMessage () {
@@ -73,7 +76,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 @keyframes messageAnimation {
   0% {
     opacity: 1;
@@ -90,6 +93,21 @@ export default {
   100%{
     opacity: 0;
   }
+}
+
+.homeLogged {
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+.home {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.container h1 {
+  font-size: 2rem;
 }
 
 .messageSuccess {
@@ -114,34 +132,106 @@ export default {
   animation: 3s 1 linear messageAnimation;
 }
 
-#container {
-  width: 50%;
-  margin: 0 auto;
-  padding: 1.5rem;
-  display: flex;
-  justify-content: center;
+.pokeList {
+  display: grid;
+  gap: 1rem;
 }
 
-#container>div{
-  width: 40%;
-  align-self: center;
-}
-
-#container>div>div{
-  text-align: left;
-  padding: 0.5rem;
-}
-
-img{
-  width: 120px;
-  height: 120px;
-  border-radius: 50px;
+.trainerImg {
+  width: 100%;
+  max-width: 13rem;
+  background: none;
 }
 
 li{
   list-style: none;
-  display: inline-block;
-  position: relative;
-  width: 33%;
+  display: flex;
 }
+
+@media screen and (min-width: 312px) {
+  .trainerContainer {
+    width: 90%;
+    margin: 0 auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+  }
+
+  .pokeList {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 481px) {
+  .trainerContainer {
+    width: 90%;
+    margin: 0 auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+  }
+
+  .pokeList {
+    width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .home {
+    padding-top: 0;
+  }
+
+  .trainerContainer {
+    flex-flow: nowrap;
+  }
+
+  .trainerInfo {
+    width: 50%;
+  }
+
+  .pokeAdd {
+    padding: 0;
+    display: flex;
+    flex-flow: nowrap;
+    align-items: center;
+  }
+
+  .pokeList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .animation {
+    display: grid;
+    grid-template-columns: repeat(3, 7rem);
+    grid-template-rows: repeat(1, 3rem);
+    gap: 0.5rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .pokeList {
+    grid-template-columns: repeat(3, 1fr);
+    width: 80%;
+    margin: 0 auto;
+  }
+  .animation {
+    grid-template-columns: repeat(3, 10rem);
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  .pokeList {
+    grid-template-columns: repeat(3, 1fr);
+    width: 80%;
+    margin: 0 auto;
+  }
+  .animation {
+    grid-template-columns: repeat(3, 12rem);
+  }
+}
+
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Admin Panel</h3>
-    <div id="users">
+    <div class="users">
       <div  v-for="user in users" :key="user.userId">
         <UserInfo :user="user" />
       </div>
@@ -26,8 +26,8 @@ export default {
   },
   methods: {
     getUsers () {
-      userService.getUsers().then(users => {
-        this.users = users
+      userService.getUsers().then(data => {
+        this.users = data.users
       }, error => {
         console.log(error)
       })
@@ -37,11 +37,35 @@ export default {
 </script>
 
 <style scoped>
-#users {
-  display: inline-flex;
+.users {
+  display: grid;
+  padding: 1rem;
 }
 
-#users>div{
-  margin: 10px;
+.user>div {
+  margin: 1rem;
+}
+
+@media screen and (min-width: 481px) {
+  .users {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .users {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .users {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+@media screen and (min-width: 1201px) {
+  .users {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
 </style>
