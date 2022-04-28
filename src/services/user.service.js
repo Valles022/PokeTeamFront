@@ -4,9 +4,7 @@ const apiUrl = 'https://poke-team-backend.herokuapp.com'
 function login (username, password) {
   const requestOptions = {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: authHeader(),
     body: JSON.stringify({ user: username, password: password })
   }
 
