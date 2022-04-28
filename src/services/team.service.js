@@ -1,5 +1,5 @@
 import { authHeader } from '@/helpers/auth-header'
-const apiUrl = 'https://poke-team-backend.herokuapp.com/'
+const apiUrl = 'https://poke-team-backend.herokuapp.com'
 
 function pokeDelete (index) {
   const requestOptions = {
