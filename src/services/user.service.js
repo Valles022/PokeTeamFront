@@ -1,5 +1,5 @@
 import { formHeader, authHeader } from '@/helpers/auth-header'
-const apiUrl = 'http://localhost:3000'
+const apiUrl = 'https://poke-team-backend.herokuapp.com/'
 
 function login (username, password) {
   const requestOptions = {
