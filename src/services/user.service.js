@@ -34,9 +34,6 @@ function register (formData) {
     body: formData
   }
 
-  console.log(formData.get('user'))
-
-  console.log(requestOptions.body)
   return fetch(`${apiUrl}/auth/register`, requestOptions).then(response => response.json()).then(data => {
     const user = {
       username: data.user.username,

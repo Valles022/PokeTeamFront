@@ -2,7 +2,7 @@
   <div class="homeLogged" v-if="user">
     <div class="trainerContainer">
       <div>
-        <img v-if="user.image" :src="`http://localhost:3000/uploads/${user.image}`" alt="Imagen del usuario" class="trainerImg">
+        <img v-if="user.image" :src="`https://poke-team-backend.herokuapp.com/uploads/${user.image}`" alt="Imagen del usuario" class="trainerImg">
         <img v-else src="@/assets/pokeball.png" alt="Imagen del usuario" class="trainerImg">
       </div>
       <div class="trainerInfo">
@@ -141,6 +141,7 @@ export default {
   width: 100%;
   max-width: 13rem;
   background: none;
+  border-radius: 50%;
 }
 
 li{

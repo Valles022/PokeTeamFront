@@ -1,5 +1,5 @@
 <template>
-  <div id="login-form">
+  <div class="login-form">
       <form @submit.prevent="handleSubmit">
         <div>
             <img src="@/assets/login-img.jpg" alt="Imagen pokedex">
@@ -11,7 +11,7 @@
             <input type="password" v-model="password"  name="password" placeholder="Password">
         </div>
         <div>
-            <button id="btn-submit">Submit</button>
+            <button class="btn-submit">Submit</button>
         </div>
       </form>
   </div>
@@ -40,7 +40,7 @@ export default {
 </script>
 
 <style scoped>
-#login-form{
+.login-form{
   width: 100%;
   margin: 0 auto;
   font-size: 18px !important;
@@ -48,12 +48,12 @@ export default {
   border-radius: 2rem;
 }
 
-#login-form div{
+.login-form div{
   padding: 0.5rem;
   margin: 0.5rem;
 }
 
-#login-form div input{
+.login-form div input{
   width: 80%;
   height: 2.5rem;
   font-size: 25px;
@@ -63,7 +63,7 @@ img {
   border-radius: 50px;
 }
 
-#btn-submit{
+.btn-submit{
   width: 80%;
   height: 2rem;
   background-color: #127eed;
